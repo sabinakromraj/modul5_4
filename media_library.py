@@ -28,12 +28,13 @@ def get_movies(media_library):
     return sorted(movies, key=lambda x: x.title)
 
 def get_series(media_library):
-    series = [media for media in media_library if isinstance(media, Series)]
+    series = [media for media in media_library if type(media) == Series]
     return sorted(series, key=lambda x: x.title)
     
-def search(query):
-    results = [media for media in media_library if query in media.title]
-    return results
+def search(media_library, query):
+    for media in media_library:
+        if query in media.title:
+            return media
     
 def generate_views(media_library):
     media = random.choice(media_library)
