@@ -24,14 +24,14 @@ class Series(Movie):
         return f"{self.title} S{self.season:02}E{self.episode:02}"
     
 def get_movies(media_library):
-    movies = [str(media) for media in media_library if isinstance(media, Movie) and not isinstance(media, Series)]
-    return sorted(movies)
+    movies = [media for media in media_library if type(media) == Movie]
+    return sorted(movies, key=lambda x: x.title)
 
 def get_series(media_library):
-    series = [str(media) for media in media_library if isinstance(media, Series)]
-    return sorted(series)
+    series = [media for media in media_library if isinstance(media, Series)]
+    return sorted(series, key=lambda x: x.title)
     
-def search(media_library, query):
+def search(query):
     results = [media for media in media_library if query in media.title]
     return results
     
@@ -71,5 +71,3 @@ print(f"Najpopularniejsze filmy i seriale dnia {current_date}:")
 top_titles = get_top_titles(media_library, 3)
 for idx, title in enumerate(top_titles, start=1):
     print(f"{idx}. {title} ({title.views} odtworzeń)")
-
-
