@@ -23,13 +23,9 @@ class Series(Movie):
     def __str__(self):
         return f"{self.title} S{self.season:02}E{self.episode:02}"
     
-def get_movies(media_library):
-    movies = [media for media in media_library if type(media) == Movie]
-    return sorted(movies, key=lambda x: x.title)
-
-def get_series(media_library):
-    series = [media for media in media_library if type(media) == Series]
-    return sorted(series, key=lambda x: x.title)
+def get_media_by_type(media_library, media_type):
+    media_items = [media for media in media_library if type(media) == media_type]
+    return sorted(media_items, key=lambda x: x.title)
     
 def search(media_library, query):
     for media in media_library:
@@ -53,22 +49,22 @@ def get_top_titles(media_library, count):
 if __name__ == "__main__":
     print("Biblioteka filmów")
                 
-media_library = [
-    Movie("Pulp Fiction", 1994, "Crime"),
-    Movie("The Shawshank Redemption", 1994, "Drama"),
-    Movie("The Green Mile", 1999, "Drama"),
-    Movie("Forrest Gump", 1994, "Drama"),
-    Series("Breaking Bad", 2008, "Crime", 1, 1),
-    Series("Game of Thrones", 2011, "Fantasy", 2, 2),
-    Series("House M.D.", 2004, "Drama/Comedy", 3, 3),
-    Series("Stranger Things", 2016, "Drama/Horror/Sci-Fi", 1, 1)
-]
+    media_library = [
+        Movie("Pulp Fiction", 1994, "Crime"),
+        Movie("The Shawshank Redemption", 1994, "Drama"),
+        Movie("The Green Mile", 1999, "Drama"),
+        Movie("Forrest Gump", 1994, "Drama"),
+        Series("Breaking Bad", 2008, "Crime", 1, 1),
+        Series("Game of Thrones", 2011, "Fantasy", 2, 2),
+        Series("House M.D.", 2004, "Drama/Comedy", 3, 3),
+        Series("Stranger Things", 2016, "Drama/Horror/Sci-Fi", 1, 1)
+    ]
 
-run_generate_views(media_library, 10)
+    run_generate_views(media_library, 10)
 
-current_date = datetime.now().strftime("%d.%m.%Y")
-print(f"Najpopularniejsze filmy i seriale dnia {current_date}:")
+    current_date = datetime.now().strftime("%d.%m.%Y")
+    print(f"Najpopularniejsze filmy i seriale dnia {current_date}:")
 
-top_titles = get_top_titles(media_library, 3)
-for idx, title in enumerate(top_titles, start=1):
-    print(f"{idx}. {title} ({title.views} odtworzeń)")
+    top_titles = get_top_titles(media_library, 3)
+    for idx, title in enumerate(top_titles, start=1):
+        print(f"{idx}. {title} ({title.views} odtworzeń)")
