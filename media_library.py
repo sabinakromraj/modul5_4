@@ -1,6 +1,7 @@
 from datetime import datetime
 import random
 
+
 class Movie:
     def __init__(self, title, release_year, genre):
         self.title = title
@@ -9,10 +10,11 @@ class Movie:
         self.views = 0
 
     def play(self):
-        self.views +=1
+        self.views += 1
 
     def __str__(self):
         return f"{self.title} ({self.release_year})"
+
 
 class Series(Movie):
     def __init__(self, title, release_year, genre, season, episode):
@@ -22,24 +24,38 @@ class Series(Movie):
 
     def __str__(self):
         return f"{self.title} S{self.season:02}E{self.episode:02}"
-    
+
+
 def get_media_by_type(media_library, media_type):
-    media_items = [media for media in media_library if type(media) == media_type]
+    media_items = [
+        media for media in media_library if type(media) == media_type]
     return sorted(media_items, key=lambda x: x.title)
-    
+
+
+def get_movies(media_library):
+    return get_media_by_type(media_library, Movie)
+
+
+def get_series(media_library):
+    return get_media_by_type(media_library, Series)
+
+
 def search(media_library, query):
     for media in media_library:
         if query in media.title:
             return media
-    
+
+
 def generate_views(media_library):
     media = random.choice(media_library)
     views = random.randint(1, 100)
     media.views += views
 
+
 def run_generate_views(media_library, num_runs=10):
     for i in range(num_runs):
         generate_views(media_library)
+
 
 def get_top_titles(media_library, count):
     sorted_media = sorted(media_library, key=lambda x: x.views, reverse=True)
@@ -48,7 +64,7 @@ def get_top_titles(media_library, count):
 
 if __name__ == "__main__":
     print("Biblioteka filmów")
-                
+
     media_library = [
         Movie("Pulp Fiction", 1994, "Crime"),
         Movie("The Shawshank Redemption", 1994, "Drama"),
